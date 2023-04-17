@@ -1,0 +1,62 @@
+.\" generated with Ronn-NG/v0.9.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
+.TH "COUNT" "3" "April 2023" ""
+.SH "NAME"
+\fBcount\fR \- count the files in a directory
+.SH "SYNOPSIS"
+.nf
+#include "count\.h"
+printf("%i", count_query("/var/www/html", 0, 1, 0, 1));
+.fi
+.SH "DESCRIPTION"
+\fBcount\fR counts the number of files in a directory\. It can also be used (see \fIEXAMPLES\fR) to include directories, symbolic links, and hidden files in that count\. Additionally, a command\-line utility is provided, see count(1)\.
+.SH "EXAMPLES"
+Get the number of files in the directory "/home/sid", excluding hidden ones:
+.br
+.IP "" 4
+.nf
+int count = count_files("/home/sid", 0);
+.fi
+.IP "" 0
+.P
+Get the number of files and directories in the directory "/home/sid", excluding hidden ones:
+.br
+.IP "" 4
+.nf
+int count = count_query("/home/sid", 0, 1, 1, 0);
+.fi
+.IP "" 0
+.P
+Get the number of links, files and directories in the directory "/home/sid", excluding hidden ones:
+.br
+.IP "" 4
+.nf
+int count = count_query("/home/sid", 0, 1, 1, 1);
+.fi
+.IP "" 0
+.P
+Get the number of links, files and directories in the directory "/home/sid", including hidden ones:
+.br
+.IP "" 4
+.nf
+int count = count_items("/home/sid", 1);
+.fi
+.IP "" 0
+.P
+Get the number of files in the directory "/home/sid", including hidden ones:
+.br
+.IP "" 4
+.nf
+int count = count_query("/home/sid", 1, 1, 0, 0);
+.fi
+.IP "" 0
+.SH "RETURN VALUE"
+These functions return the count of files, directories, and/or links as specified in the query\.
+.SH "NOTES"
+The current working directory ("\."), and parent directory ("\.\.") are not included in any counts\. No counts are recursive\.
+.SH "ERRORS"
+All functions provided in count\.h return \-1 if there was a failure (likely due to a directory not existing)\.
+.SH "COPYRIGHT"
+Copyright \(co 2023 Sidney Trzepacz\. License MIT: The MIT License \fIhttps://opensource\.org/license/mit\fR\. This is free software: you are free to change and redistribute it\. There is NO WARRANTY OF ANY KIND, to the extent permitted by law\.
+.SH "SEE ALSO"
+ls(1), wc(1), find(1), libc(7)

@@ -1,0 +1,54 @@
+count(3) -- count the files in a directory
+=============================================
+
+## SYNOPSIS
+
+    #include <count.h> // or "count.h" if not installed to library location
+    printf("%i", count_query("/var/www/html", 0, 1, 0, 1));
+
+## DESCRIPTION
+
+**count** counts the number of files in a directory. It can also be used (see [EXAMPLES][]) to include directories, symbolic links, and hidden files in that count. Additionally, a command-line utility is provided, see count(1).
+
+## EXAMPLES
+
+Get the number of files in the directory "/home/sid", excluding hidden ones:<br>
+
+    int count = count_files("/home/sid", 0);
+
+Get the number of files and directories in the directory "/home/sid", excluding hidden ones:<br>
+
+    int count = count_query("/home/sid", 0, 1, 1, 0);
+
+Get the number of links, files and directories in the directory "/home/sid", excluding hidden ones:<br>
+    
+    int count = count_query("/home/sid", 0, 1, 1, 1);
+
+Get the number of links, files and directories in the directory "/home/sid", including hidden ones:<br>
+
+    int count = count_items("/home/sid", 1);
+
+Get the number of files in the directory "/home/sid", including hidden ones:<br>
+
+    int count = count_query("/home/sid", 1, 1, 0, 0);
+
+## RETURN VALUE
+
+These functions return the count of files, directories, and/or links as specified in the query.
+
+## NOTES
+
+The current working directory ("."), and parent directory ("..") are not included in any counts. No counts are recursive.
+
+## ERRORS
+
+All functions provided in count.h return -1 if there was a failure (likely due to a directory not existing).
+
+## COPYRIGHT
+
+Copyright © 2023 Sidney Trzepacz.  License MIT: The MIT License <https://opensource.org/license/mit>.
+This is free software: you are free to change and redistribute it.  There is NO WARRANTY OF ANY KIND, to the extent permitted by law.
+
+## SEE ALSO
+
+ls(1), wc(1), find(1), libc(7)

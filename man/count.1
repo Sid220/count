@@ -1,0 +1,52 @@
+.\" generated with Ronn-NG/v0.9.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
+.TH "COUNT" "1" "April 2023" ""
+.SH "NAME"
+\fBcount\fR \- count the files in a directory
+.SH "SYNOPSIS"
+\fBcount\fR \fB[\-\-dir]\fR \fB[\-\-hidden]\fR \fB[\-\-link]\fR \fB[\-\-output=FILE]\fR \fB[DIR\|\.\|\.\|\.]\fR
+.SH "DESCRIPTION"
+\fBcount\fR counts the number of files in a directory, or directories\. It can also be configured (see \fIOPTIONS\fR) to include directories, symbolic links, and hidden files in that count\. Additionally, a C library is provided, see count(3) for more information\.
+.SH "OPTIONS"
+These options control what types of files are counted, and whether output is written to a file or standard output\.
+.P
+\fB\-o FILE\fR, \fB\-\-output=FILE\fR: Output to the given file instead of standard output\.
+.P
+\fB\-h\fR, \fB\-\-hidden\fR: Include hidden files (that is, those beginning with "\.") in the file count\.
+.P
+\fB\-d\fR, \fB\-\-dir\fR: Include directories in the file count (non\-recursive)\. Does not include cwd ("\.") or parent directory ("\.\.")
+.P
+\fB\-l\fR, \fB\-\-link\fR: Include symbolic links in the file count\.
+.P
+Miscellaneous options:
+.P
+\fB\-?\fR, \fB\-\-help\fR: Show a short help menu\.
+.P
+\fB\-\-usage\fR: Show a quick summary of usage options\.
+.P
+\fB\-V\fR, \fB\-\-version\fR: Show count version and exit\.
+.SH "EXAMPLES"
+Count the number of files and folders in the home directory, excluding hidden files and folders:
+.IP "" 4
+.nf
+$ count /home/$USER \-d
+5
+$
+.fi
+.IP "" 0
+.P
+Count the number of files, including hidden and linked ones, in /var/www/html, and output it to the file /home/$USER/count\.txt:
+.IP "" 4
+.nf
+$ count /var/www/html \-hl \-\-output=/home/$USER/count\.txt
+$ cat /home/$USER/count\.txt
+12
+$
+.fi
+.IP "" 0
+.SH "NOTES"
+The current working directory ("\."), and parent directory ("\.\.") are not included in any counts\. No counts are recursive\.
+.SH "COPYRIGHT"
+Copyright \(co 2023 Sidney Trzepacz\. License MIT: The MIT License \fIhttps://opensource\.org/license/mit\fR\. This is free software: you are free to change and redistribute it\. There is NO WARRANTY OF ANY KIND, to the extent permitted by law\.
+.SH "SEE ALSO"
+ls(1), wc(1), find(1)
