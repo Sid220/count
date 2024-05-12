@@ -86,7 +86,7 @@ jobs:
         draft: false
         prerelease: false
     - name: Upload Release Asset
-      id: upload-release-asset
+      id: upload-release-asset-rpm
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -96,7 +96,7 @@ jobs:
         asset_name: count-1.1.1-Linux.rpm
         asset_content_type: application/x-rpm
     - name: Upload Release Asset
-      id: upload-release-asset
+      id: upload-release-asset-deb
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
