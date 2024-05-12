@@ -63,11 +63,14 @@ jobs:
       run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
     - name: Run tests
-      run: ctest --extra-verbose
+      run: |
+        cd ${{ steps.strings.outputs.build-output-dir }}
+        ctest --extra-verbose
 
     - name: Build packages
-      run: >
+      run: |
         cd ${{ steps.strings.outputs.build-output-dir }}
+        
         cpack -C ${{ matrix.build_type }} -G DEB
         
         sudo apt install rpm -y
