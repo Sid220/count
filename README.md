@@ -1,4 +1,5 @@
 count -- count the files in a directory 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Sid220/count/cmake-multi-platform.yml)
 =============================================
 
 ## SYNOPSIS
