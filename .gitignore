@@ -13,3 +13,4 @@ _deps
 cmake-build-debug
 *.deb
 check_count
+build
