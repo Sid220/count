@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 project(count C)
 
+include(print_version.cmake)
+
 
 ###############################################################################
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
@@ -15,7 +17,10 @@ include(CheckTypeSize)
 
 set(CPACK_PACKAGE_NAME "count")
 set(CPACK_PACKAGE_VENDOR "Plios")
-set(CPACK_PACKAGE_VERSION_MAJOR 1)
+set(CPACK_PACKAGE_VERSION_MAJOR ${CMAKE_PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${CMAKE_PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${CMAKE_PROJECT_VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION ${CMAKE_PROJECT_VERSION})
 set(CPACK_PACKAGE_DESCRIPTION "count the number of files in a directory")
 
 set(CMAKE_C_STANDARD 11)

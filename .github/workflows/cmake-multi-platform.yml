@@ -61,6 +61,12 @@ jobs:
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
       run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
+
+    - name: Get version
+      run: |
+        echo "COUNT_VERSION=$(cmake -P print_version.cmake)" >> $GITHUB_ENV
+        echo "Version: $COUNT_VERSION"
+
     - name: Run tests
       run: |
         cd ${{ steps.strings.outputs.build-output-dir }}
@@ -81,8 +87,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: ${{ env.COUNT_VERSION }}
+        release_name: Release ${{ env.COUNT_VERSION }}
         draft: false
         prerelease: false
     - name: Upload Release Asset
@@ -92,8 +98,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ${{ steps.strings.outputs.build-output-dir }}/count-1.1.1-Linux.rpm
-        asset_name: count-1.1.1-Linux.rpm
+        asset_path: ${{ steps.strings.outputs.build-output-dir }}/count-${{ env.COUNT_VERSION }}-Linux.rpm
+        asset_name: count-${{ env.COUNT_VERSION }}-Linux.rpm
         asset_content_type: application/x-rpm
     - name: Upload Release Asset
       id: upload-release-asset-deb
@@ -102,6 +108,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ${{ steps.strings.outputs.build-output-dir }}/count-1.1.1-Linux.deb
-        asset_name: count-1.1.1-Linux.deb
+        asset_path: ${{ steps.strings.outputs.build-output-dir }}/count-${{ env.COUNT_VERSION }}-Linux.deb
+        asset_name: count-${{ env.COUNT_VERSION }}-Linux.deb
         asset_content_type: application/x-debian-package
